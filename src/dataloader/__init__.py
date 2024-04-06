@@ -13,9 +13,8 @@ accelerator = Accelerator()
 logger = logging.get_logger(__name__)
 
 
-DATASET_MAP = {"daily": DailyDialogDataset, "wow": WoWDataset, "planwow": PlanWoWDataset, "reddit": RedditDataset, "persona": PersonaChatDataset}
-COLLATOR_MAP = {"bart": DialogCollator, "docbart": DocDialogCollator , "planbart": PlanDocDialogCollator, "codr": ContextDrivenCollator, 'bartbase': BartBaseDialogCollator, 
-                "bartvae": BartBaseDialogCollator, 'bartdiffusion': BartDiffusionDialogCollator, 'diffusion': BartDiffusionDialogCollator, 'bartdiffusion_top':BartDiffusionDialogCollator}
+DATASET_MAP = {"daily": DailyDialogDataset, "persona": PersonaChatDataset}
+COLLATOR_MAP = {'bartbase': BartBaseDialogCollator, 'bartdiffusion': BartDiffusionDialogCollator}
 
 
 def get_dataloaders(args, tokenizer, model, split_list: List[str]):

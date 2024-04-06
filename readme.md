@@ -12,11 +12,15 @@ Architecture of DiffusionDialog.
 
 ## Depenedency
 
+### Python version
+the python version ```python==3.8.2```
+
 ### Download packages
 
 ```bash
 pip install -r requirements.txt
 ```
+
 
 
 ## Train & Evaluate

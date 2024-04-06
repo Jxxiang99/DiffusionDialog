@@ -10,10 +10,10 @@ from datetime import datetime
 import accelerate.logging as logging
 from tqdm import tqdm
 from typing import List
-from nlgeval import NLGEval
 from transformers import AutoTokenizer
 from metrics import F1Metric
 import pdb
+from collections import defaultdict
 logger = logging.get_logger(__name__)
 
 
@@ -107,34 +107,21 @@ class MBR_Evaluator:
         logger.info(f"Save pred result to {pred_path}")
 
     def _compute_metrics(self, pred_sents_all, gold_sents_all):
-        p, r, f = self.eval_f1(pred_sents_all, gold_sents_all)
-
         gold_tokenized = tokenize_sents(gold_sents_all, self.tokenizer)
         pred_tokenized = tokenize_sents(pred_sents_all, self.tokenizer)
 
-        gold_intra_dist1, gold_intra_dist2, gold_inter_dist1, gold_inter_dist2 = self.eval_distinct(gold_tokenized)
         pred_intra_dist1, pred_intra_dist2, pred_inter_dist1, pred_inter_dist2 = self.eval_distinct(pred_tokenized)
 
-        nlgeval = NLGEval(no_skipthoughts=True, no_glove=True)
 
         gold_sents_all = [gold_sents_all]
 
         blue1, blue2 = self.eval_bleu(pred_tokenized, gold_tokenized)
 
-        res = nlgeval.compute_metrics(ref_list=gold_sents_all, hyp_list=pred_sents_all)
-        res["precision"] = p
-        res["recall"] = r
-        res["f1"] = f
+        res = defaultdict()
         res["Bleu_1"] = blue1
         res["Bleu_2"] = blue2
-        res["gold_intra_dist1"] = gold_intra_dist1
-        res["gold_intra_dist2"] = gold_intra_dist2
-        res["gold_inter_dist1"] = gold_inter_dist1
-        res["gold_inter_dist2"] = gold_inter_dist2
-        res["pred_intra_dist1"] = pred_intra_dist1
-        res["pred_intra_dist2"] = pred_intra_dist2
-        res["pred_inter_dist1"] = pred_inter_dist1
-        res["pred_inter_dist2"] = pred_inter_dist2
+        res["dist1"] = pred_inter_dist1
+        res["dist2"] = pred_inter_dist2
 
         return res
     

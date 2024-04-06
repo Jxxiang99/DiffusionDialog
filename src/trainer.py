@@ -129,10 +129,6 @@ class Trainer:
 
         batch_loss_history = {}
 
-        # if self.args.load_checkpoint and resume_step is not None:
-        #     effective_step = resume_step
-        
-
         while True:
             epoch += 1
             self.model.train()
@@ -159,16 +155,10 @@ class Trainer:
                     loss += value
                 loss = loss / self.args.grad_accum_steps
                 self.accelerator.backward(loss)
-
-                # for name, para in getattr(self.model, "module", self.model).named_parameters():
-                #     if para.grad is None:
-                #         print(name)
-                # pdb.set_trace()
                 
                 if step % self.args.grad_accum_steps == 0:
                     self.model_update()
                     effective_step += 1
-                    # 间隔打印信息 print intermediate result
                     if effective_step % self.args.logging_steps == 0:
                         end_time = time.time()
                         # batch_loss_history = torch.stack(self.accelerator.gather(batch_loss_history))
@@ -210,7 +200,6 @@ class Trainer:
 
                         start_time = time.time()
 
-                # 检查是否到达训练step上限
                 if effective_step >= self.args.total_steps:
                     break
 
@@ -222,7 +211,6 @@ class Trainer:
 
     def eval(self, dev_loader):
         self.model.eval()
-        # 评估开发集
         logger.info("Eval dev dataset perplexity ...")
         batch_loss_history = []
         n_total_words = []

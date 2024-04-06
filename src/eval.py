@@ -13,8 +13,7 @@ from eval_plato_MBR import MBR_Evaluator
 
 logger = get_logger(__name__)
 
-MODEL_MAP = {"bart": BartDialogModel, "docbart": BartDialogModel, "planbart": PlanBartDialogModel, "codr": CoDR, "bartbase": BartBase, 
-             "bartvae": BartVAE, 'bartdiffusion': BartDiffusion, 'bartdiffusion_top': BartDiffusionTOP}
+MODEL_MAP = {"bartbase": BartBase, 'bartdiffusion': BartDiffusion}
 EVALUATOR_MAP = {"nlg-eval" : Evaluator, "nltk-eval" : NLTK_Evaluator, "mbr-eval" : MBR_Evaluator}
 
 

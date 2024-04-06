@@ -5,23 +5,21 @@ from accelerate import Accelerator
 from accelerate.logging import get_logger
 from model.model import *
 from trainer import Trainer
-from pretrainer import PreTrainer
 from dataloader import get_dataloaders
 from transformers import set_seed
 import pdb
 
 logger = get_logger(__name__)
 
-MODEL_MAP = {"bart": BartDialogModel, "docbart": BartDialogModel, "planbart": PlanBartDialogModel, "codr": CoDR, "bartbase": BartBase, 
-             "bartvae": BartVAE, 'bartdiffusion': BartDiffusion, 'bartdiffusion_top': BartDiffusionTOP}
+MODEL_MAP = {"bartbase": BartBase, 'bartdiffusion': BartDiffusion}
 
 
 def get_parser_config() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="The arguments of Conversation")
 
     # dataset
-    parser.add_argument("--model", type=str, default="bart", choices=["bart", "docbart", "planbart", "codr", "bartbase", "bartvae", "bartdiffusion", "bartdiffusion_top"])
-    parser.add_argument("--data", type=str, default="daily", choices=["daily", "wow", "planwow", "reddit", "persona"])
+    parser.add_argument("--model", type=str, default="bart", choices=["bartbase", "bartdiffusion"])
+    parser.add_argument("--data", type=str, default="daily", choices=["daily", "persona"])
     parser.add_argument("--train_set_split_name", type=str, default="train")
     parser.add_argument("--dev_set_split_name", type=str, default="dev")
     parser.add_argument("--test_set_split_name", type=str, default="test")

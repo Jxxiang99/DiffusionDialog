@@ -5,7 +5,6 @@ data_root=/data1/jxxiang/dataset
 proj_dir=$root/DiffusionDialog_test/find_ori_2024
 
 export CUDA_VISIBLE_DEVICES=1
-export NLGEVAL_DATA=/data1/jxxiang/nlgeval_data
 export TOKENIZERS_PARALLELISM=true
 
 sent_stage_training=0
@@ -70,7 +69,7 @@ sent_stage_test=0
 # --load_checkpoint \
 # --checkpoint /home/jxxiang/working/LightDialog/log/daily/bartbase_daily_training_step_20 \
 if [ $sent_stage_training -eq 1 ]; then
-    nohup python -u $proj_dir/src/train.py \
+    python -u $proj_dir/src/train.py \
     --model bartbase \
     --data daily \
     --train_set_split_name train \
@@ -94,13 +93,12 @@ if [ $sent_stage_training -eq 1 ]; then
     --learning_rate 1e-4 \
     --clip_value 1 \
     --beam_size 5 \
-    --seed 2022 \
-    > train_bartbase_new.log 2>&1 &
+    --seed 2022
 fi
 
 if [ $sent_stage_evaluation -eq 1 ]; then
 # evaluating
-    nohup python -u $proj_dir/src/eval.py \
+    python -u $proj_dir/src/eval.py \
     --model bartbase \
     --data daily \
     --eval_way nltk-eval \
@@ -121,8 +119,7 @@ if [ $sent_stage_evaluation -eq 1 ]; then
     --dev_batch_size 8 \
     --test_batch_size 8 \
     --beam_size 5 \
-    --seed 2022 \
-    > eval_bartbase_new.log 2>&1 &
+    --seed 2022
 fi
 
 if [ $sent_stage_test -eq 1 ]; then
