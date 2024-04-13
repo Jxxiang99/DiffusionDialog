@@ -1,14 +1,13 @@
 # DiffusionDialog: A Diffusion Model for Diverse Dialog Generation with Latent Space
 
+This project is the official Codebase for [DiffusionDialog: A Diffusion Model for Diverse Dialog Generation with Latent Space](https://arxiv.org/abs/2404.06760)
+
+![](./img/DiffusionDialog.png)
+<center> The frame work of DiffusionDialog</center>
+
 ## Abstract
 
 In real-life conversations, the content is diverse, and there exists the one-to-many problem that requires diverse generation. Previous studies attempted to introduce discrete or Gaussian-based continuous latent variables to address the one-to-many problem, but the diversity is limited. Recently, diffusion models have made breakthroughs in computer vision, and some attempts have been made in natural language processing. In this paper, we propose DiffusionDialog, a novel approach to enhance the diversity of dialogue generation with the help of diffusion model. In our approach, we introduce continuous latent variables into the diffusion model. The problem of using latent variables in the dialog task is how to build both an effective prior of the latent space and an inferring process to obtain the proper latent given the context. By combining the encoder and latent-based diffusion model, we encode the response's latent representation in a continuous space as the prior, instead of fixed Gaussian distribution or simply discrete ones. We then infer the latent by denoising step by step with the diffusion model. The experimental results show that our model greatly enhances the diversity of dialog responses while maintaining coherence. Furthermore, in further analysis, we find that our diffusion model achieves high inference efficiency, which is the main challenge of applying diffusion models in natural language processing.
-
-## Model Architecture
-
-![](./img/DiffusionDialog.png)
-
-Architecture of DiffusionDialog.
 
 ## Depenedency
 
@@ -53,4 +52,19 @@ Then set the ```--checkpoint``` variable to the address of the directory obtaine
 
 ```bash
 bash daily_diffusiondialog.sh
+```
+
+
+## Citation
+
+This work has been accepted to [LREC-COLING'24](https://lrec-coling-2024.org/), please cite the paper if you use DiffusionDialog or this repository in your research.
+Thank you very much.
+
+```bibtex
+@article{xiang2024diffusiondialog,
+  title={DiffusionDialog: A Diffusion Model for Diverse Dialog Generation with Latent Space},
+  author={Xiang, Jianxiang and Liu, Zhenhua and Liu, Haodong and Bai, Yin and Cheng, Jia and Chen, Wenliang},
+  journal={arXiv preprint arXiv:2404.06760},
+  year={2024}
+}
 ```
